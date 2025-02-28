@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Hoş Geldiniz - Ana Sayfa{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Hoş Geldiniz!</h1>
+    <p class="text-center">En iyi ürünleri keşfedin ve alışverişin keyfini çıkarın!</p>
+    
+    <div class="row mb-4">
+        <div class="col-md-12 text-center">
+            <img src="{% static 'website_app/images/welcome.jpg' %}" class="img-fluid" alt="Hoş Geldiniz" style="max-width: 600px;">
+        </div>
+    </div>
+
+    <div class="text-center">
+        <h2>Hizmetlerimiz</h2>
+        <p>Biz, en kaliteli ürünleri en uygun fiyatlarla sunmayı hedefliyoruz.</p>
+        <p>Alışveriş deneyiminizi daha keyifli hale getirmek için buradayız!</p>
+    </div>
+
+    <div class="text-center mt-5">
+        <h3>İletişim</h3>
+        <p>Bize ulaşmak için <a href="#">buraya tıklayın</a>.</p>
+    </div>
+</div>
+{% endblock %}
