@@ -55,3 +55,22 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('darkMode', 'disabled');
     }
 });
+
+function alertClick() {
+    document.getElementsByTagName('a').addEventListener('click', function(event) {
+        // Sayfa yönlendirmesini engelle
+        event.preventDefault();
+
+        // Alert yerine burada kullanıcıya mesaj gösterelim
+        alert('Product added to cart successfully');
+
+        // 2 saniye sonra sayfayı yönlendir
+        setTimeout(function() {
+            // Yönlendirme işlemi
+            window.location.href = event.target.href;
+        }, 2000); // 2 saniye sonra yönlendirme yapılacak
+    });
+}
+
+// Fonksiyonu çağır
+alertClick();
