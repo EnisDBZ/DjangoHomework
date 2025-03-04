@@ -1,0 +1,43 @@
+{%extends 'base.html'%}
+{%load static%}
+
+{%block content%}
+<div class="container-fluid">
+    <div class="text-center">
+        <div id="cart_result" class="container p-4 rounded shadow-sm">
+            <h2 class="mb-4">Items in your cart</h2>
+
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="thead-dar">
+                    <tr>
+                        <th scope="col">Product Image</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                        
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td align="center"><img src="{{ item.cart_product_name.product_image.url}}" width="75px" height="75px" alt="{{item.product_name}}"></td>
+                        <td>{{ item.cart_product_name.product_name }}</td>
+                        <td>{{ item.cart_quantity }}</td>
+                        <td>{{ item.cart_product_name.product_price }}$</td>
+                        
+                        <td>
+                            <a href="{% url 'website_app:remove_from_cart' item.id %}">
+                                <button class="btn btn-danger btn-sm">Remove</button>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="fw-bold fs-5">Total Price: {{ total_price }}$</div>
+        </div>
+    </div>
+</div>
+{%endblock%}
