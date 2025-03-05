@@ -91,9 +91,19 @@ body.dark-mode a:hover {
     color: #aecbfa;
 }
 
-body.dark-mode .btn-primary {
-    background-color: #4285f4;
-    border-color: #4285f4;
+body.dark-mode #cart.btn-primary {
+    background-color: transparent;
+    border-color: transparent;
+}
+#cart.btn-primary{
+    background-color: transparent;
+    border-color:transparent ;
+}
+body.dark-mode #cart i{
+    color:var(--light-bg);
+}
+#cart i{
+    color:var(--dark-bg);
 }
 
 /* Login Form Styling */
@@ -195,17 +205,27 @@ button:hover {
     text-decoration: underline;
 }
 
-a#cart.dark-mode{
+#cart.dark-mode{
     width: 30%;
     padding: 12px;
-    background-color: var(--primary-color);
+    background-color: transparent ;
     border: none;
-    border-radius: 5px;
+    border-color:none ;
+    border-radius: 1px;
     color: white;
     font-size: 18px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+
+body.dark-mode .bi-cart{
+    color:var(--dark-bg);
+}
+.bi-cart {
+    color:white;
+}
+
+
 
 /* Responsive Design */
 @media (max-width: 500px) {
@@ -312,4 +332,85 @@ body.dark-mode .table-hover tbody tr:hover {
 .notification.show {
     opacity: 1;
     transform: translateY(0);
+}
+
+.dropdown:hover > .dropdown-menu{
+    display: block;
+    margin-top: 0;
+}
+.dropdown-menu {
+    min-width: 75px !important;
+
+}
+.dropdown > .dropdown:active {
+    /*Without this, clicking will make it sticky*/
+      pointer-events: none;
+  }
+body.dark-mode .dropdown-menu{
+    background-color: var(--primary-color) !important;
+    color:var(--dark-text) !important;
+}
+
+body.dark-mode .dropdown-item:hover{
+    background-color: transparent;
+}
+
+body.dark-mode #userDropdownButton{
+    background-color: var(--primary-color);
+    color: var(--dark-text);
+}
+body.dark-mode #userDropdownButton:hover{
+    background-color: var(--primary-hover);
+}
+
+#userDropdownButton{
+    background-color: var(--light-bg);
+    color:black;
+}
+
+
+
+
+
+.sag-banner {
+    position: fixed;
+    right: 0;
+    bottom: 7.5%;
+    width: 275px;
+    height: 630px;
+    background-color: red;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    writing-mode: vertical-rl;
+    transform: rotate(360deg);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+.sag-banner:hover {
+    background-color: darkred;
+}
+.sol-banner2{
+    position: fixed;
+    left: 0;
+    bottom: 7.5%;
+    width: 275px;
+    height: 630px;
+    background-color: red;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+.sol-banner2:hover {
+    background-color: darkred;
 }
