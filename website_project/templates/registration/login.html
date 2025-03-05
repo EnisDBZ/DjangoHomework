@@ -3,6 +3,12 @@
 {% block title %}Giriş Yap{% endblock %}
 
 {% block content %}
+{%if user.is_authenticated%}
+    <script type = "text/javascript">
+        
+            window.location.href = "{%url 'website_app:redirect_url'%}"
+    </script>
+{%endif%}
 <div class="login-container">
     <div class="login-box">
         <h2>Giriş Yap</h2>
@@ -20,7 +26,7 @@
             <button class="btnlogin" type="submit">Giriş Yap</button>
         </form>
         <div class="forgot-password">
-            <a href="#">Şifremi Unuttum?</a>
+            If you dont have an account,create one from  <a href="{%url 'website_app:signup'%}"> here</a>
         </div>
     </div>
 </div>
