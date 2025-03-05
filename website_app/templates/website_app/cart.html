@@ -4,29 +4,31 @@
 {%block content%}
 <div class="container-fluid">
     <div class="text-center">
-        <div id="cart_result" class="container p-4 rounded shadow-sm">
+        <div id="cart_result" class="container p-4 rounded shadow-sm w-50">
             <h2 class="mb-4">Items in your cart</h2>
 
             <table class="table table-bordered table-striped table-hover">
-                <thead class="thead-dar">
+                <thead class="thead-dar ">
                     <tr>
                         <th scope="col">Product Image</th>
                         <th scope="col">Product Name</th>
                         <th scope="col">Quantity</th>
-                        <th scope="col">Price</th>
+                        <th scope="col">Piece Price</th>
+                        <th scope="col">Total Price</th>
                         
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for item in cart_items %}
-                    <tr>
+                    <tr class="pt-4" align="center" >
                         <td align="center"><img src="{{ item.cart_product_name.product_image.url}}" width="75px" height="75px" alt="{{item.product_name}}"></td>
-                        <td>{{ item.cart_product_name.product_name }}</td>
-                        <td>{{ item.cart_quantity }}</td>
-                        <td>{{ item.cart_product_name.product_price }}$</td>
+                        <td class = "pt-4">{{ item.cart_product_name.product_name }}</td>
+                        <td class = "pt-4">{{ item.cart_quantity }}</td>
+                        <td class = "pt-4">{{ item.cart_product_name.product_price }}$</td>
+                        <td class = "pt-4">{{ item.cart_total}}$</td>
                         
-                        <td>
+                        <td  class=" pt-4">
                             <a href="{% url 'website_app:remove_from_cart' item.id %}">
                                 <button class="btn btn-danger btn-sm">Remove</button>
                             </a>
@@ -37,6 +39,8 @@
             </table>
 
             <div class="fw-bold fs-5">Total Price: {{ total_price }}$</div>
+            
+            
         </div>
     </div>
 </div>
