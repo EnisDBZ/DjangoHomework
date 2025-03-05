@@ -5,8 +5,17 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 import time
 from .models import Product,CustomUser,CartItem
-
+from decimal import Decimal
+from django.http import JsonResponse
 # Create your views here.
+
+def redirect_url_(request):
+    if request.user.is_authenticated:
+        redirect_url = 'index'  # Yönlendirilecek URL
+    else:
+        redirect_url = 'login'
+
+    return render(request, 'template_name.html', {'redirect_url': redirect_url})
 
 
 def index(request):
@@ -21,12 +30,11 @@ def products_view(request):
     products = Product.objects.all()
     return render(request,'website_app/products.html',{'products':products})
 
-
+@login_required
 def cart_view(request):
     cart_items = CartItem.objects.filter(user = request.user)
     total_price = sum(item.cart_product_name.product_price * item.cart_quantity for item in cart_items)
     return render(request,'website_app/cart.html',{'cart_items':cart_items,'total_price':total_price})
-
 def add_to_cart(request,product_id):
     product = Product.objects.get(id=product_id)
     cart_item, created = CartItem.objects.get_or_create(cart_product_name = product,user = request.user)
