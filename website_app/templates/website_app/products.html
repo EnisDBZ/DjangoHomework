@@ -8,20 +8,18 @@
     <p class="text-center">En iyi beyaz eşyaları keşfedin!</p>
     
     <div  class="container-fluid">    
-        <div id = " prodcut_cards " class = "d-flex  justify-content-center">
+        <div id = " prodcut_cards " class = "row row-cols-1 row-cols-md-3 g-3 w-75  grid gap-0 row-gap-3 mx-auto p-2  ">
             {%for product in products%}
-           <div class="mt-3" >
-                <div class="d-flex justify-content-between  card ">
+           <div class="card-deck" >
+                <div class=" card">
                     <img src="{{ product.product_image.url}}" class="card-img-top" alt="{{product.product_name}}">
-                    <div class="card-body ">
+                    <div class="card ">
                         <h5 class="card-title">{{product.product_name}}</h5>
                         <p class="card-text">{{product.product_description}}</p>
                     </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">Price:{{product.product_price}}$</li>
-                            <a href="{% url 'website_app:add_to_cart' product.id %}" id = "add" class="btn btn-primary">
-                                Add To Cart
-                            </a>
+                            <button type="button" value = "{{ product.id}}" id ="add-cart" class="btn btn-secondary">Add To Cart</button>
                         </ul>
                 </div>
             </div>
@@ -29,4 +27,25 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).on('click','#add-cart',function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url: '{%url 'add_to_cart'%}',
+            data:{
+                product_id: $('#add-cart').val(),
+                csrfmiddleawaretoke:'{{ csrf_token}}',
+                action :'post',
+
+            },
+            success:function(json){
+                console.log(json)
+            },
+            error:function(xhr,errmsg,err){
+                
+            }
+        });
+    })
+</script>
 {% endblock %}
