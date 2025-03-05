@@ -56,21 +56,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-function alertClick() {
-    document.getElementsByTagName('a').addEventListener('click', function(event) {
-        // Sayfa yönlendirmesini engelle
-        event.preventDefault();
+// Show dropdown on hover
+$('.dropdown').mouseover(function () {
+    if($('.navbar-toggler').is(':hidden')) {
+        $(this).addClass('show').attr('aria-expanded', 'true');
+        $(this).find('.dropdown-menu').addClass('show');
+    }
+}).mouseout(function () {
+    if($('.navbar-toggler').is(':hidden')) {
+        $(this).removeClass('show').attr('aria-expanded', 'false');
+        $(this).find('.dropdown-menu').removeClass('show');
+    }
+});
 
-        // Alert yerine burada kullanıcıya mesaj gösterelim
-        alert('Product added to cart successfully');
-
-        // 2 saniye sonra sayfayı yönlendir
-        setTimeout(function() {
-            // Yönlendirme işlemi
-            window.location.href = event.target.href;
-        }, 2000); // 2 saniye sonra yönlendirme yapılacak
-    });
-}
-
-// Fonksiyonu çağır
-alertClick();
+// Go to the parent link on click
+$('.dropdown > a').click(function(){
+    location.href = this.href;
+});
