@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Welcome - Products{% endblock %}
+{% block title %}Hoşgeldiniz! - Ürünler {% endblock %}
 
 {% block content %}
 <div class="container mt-5">
     <h1 class="text-center">Hoş Geldiniz!</h1>
-    <p class="text-center">En iyi beyaz eşyaları keşfedin!</p>
+    <p class="text-center">Ürünlerimizi Keşfedin!</p>
     
     <div  class="container-fluid">    
         <div id = " prodcut_cards " class = "row row-cols-1 row-cols-md-3 g-3 w-75  grid gap-0 row-gap-3 mx-auto p-2  ">
@@ -18,34 +18,27 @@
                         <p class="card-text">{{product.product_description}}</p>
                     </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Price:{{product.product_price}}$</li>
-                            <button type="button" value = "{{ product.id}}" id ="add-cart" class="btn btn-secondary">Add To Cart</button>
+                            <li class="list-group-item">Fiyat:{{product.product_price}}₺</li>
+                           <!--<a href="{%url 'website_app:add_to_cart' product.id%}">--> 
+                            <form method="POST" action="{% url 'website_app:add_to_cart' product.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">Sepete Ekle</button>
+                                <div class="position-relative">
+                                    <input class="position-absolute bottom-0 start-50 translate-middle-x" type="number" 
+                                           id="quantity" name="quantity" min="1" max="999" 
+                                           value="{{ request.POST.quantity|default:1 }}" required>
+                                </div>
+                                
+                            </form>
                         </ul>
                 </div>
             </div>
             {%endfor%}
         </div>
+
     </div>
 </div>
 <script>
-    $(document).on('click','#add-cart',function(e){
-        e.preventDefault();
-        $.ajax({
-            type:'POST',
-            url: '{%url 'add_to_cart'%}',
-            data:{
-                product_id: $('#add-cart').val(),
-                csrfmiddleawaretoke:'{{ csrf_token}}',
-                action :'post',
 
-            },
-            success:function(json){
-                console.log(json)
-            },
-            error:function(xhr,errmsg,err){
-                
-            }
-        });
-    })
 </script>
 {% endblock %}

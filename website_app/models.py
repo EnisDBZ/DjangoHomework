@@ -20,6 +20,9 @@ class Product(models.Model):
 
     def __str__(self):
         return self.product_name
+    class Meta: 
+        verbose_name = "Ürünler"
+        verbose_name_plural = "Ürünler"
     
 
 

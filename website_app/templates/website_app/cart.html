@@ -8,6 +8,55 @@
             <h2 class="mb-4">Items in your cart</h2>
 
             <table class="table table-bordered table-striped table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Ürün Görseli</th>
+                        <th scope="col">Ürün Adı</th>
+                        <th scope="col">Adet</th>
+                        <th scope="col">Adet Fiyatı</th>
+                        <th scope="col">Toplam Fiyat</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr class="pt-4" align="center">
+                        <td align="center">
+                            <img src="{{ item.cart_product_name.product_image.url }}" width="75px" height="75px" alt="{{ item.cart_product_name.product_name }}">
+                        </td>
+                        <td class="pt-4">{{ item.cart_product_name.product_name }}</td>
+                        <td class="pt-4">
+                            <form action="{% url 'website_app:update_cart_item' item.id %}" method="POST">
+                                {% csrf_token %}
+                                <input type="number" value="{{ item.cart_quantity }}" id="quantityCart" name="quantity" min="1" max="999">
+                                <button type="submit" class="btn btn-primary btn-sm">Güncelle</button>
+                            </form>
+                        </td>
+                        <td class="pt-4">{{ item.cart_product_name.product_price }}₺</td>
+                        <td class="pt-4">{{ item.cart_total }}₺</td>
+                        <td class="pt-4">
+                            <a href="{% url 'website_app:remove_from_cart' item.id %}">
+                                <button class="btn btn-danger btn-sm">Kaldır</button>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="fw-bold fs-5">Toplam Fiyat: {{ total_price }}₺</div>
+        </div>
+    </div>
+</div>
+
+
+<!--
+<div class="container-fluid">
+    <div class="text-center">
+        <div id="cart_result" class="container p-4 rounded shadow-sm w-50">
+            <h2 class="mb-4">Items in your cart</h2>
+
+            <table class="table table-bordered table-striped table-hover">
                 <thead class="thead-dar ">
                     <tr>
                         <th scope="col">Product Image</th>
@@ -24,7 +73,10 @@
                     <tr class="pt-4" align="center" >
                         <td align="center"><img src="{{ item.cart_product_name.product_image.url}}" width="75px" height="75px" alt="{{item.product_name}}"></td>
                         <td class = "pt-4">{{ item.cart_product_name.product_name }}</td>
-                        <td class = "pt-4">{{ item.cart_quantity }}</td>
+                        <td class = "pt-4">
+                            <form class="position-relative">
+                                <input class="position-absolute bottom-50 start-50 translate-middle-x" type="number" value="{{ item.cart_quantity }}" id="quantityCart" name="quantity" min="1" max="999">
+                            </form></td>
                         <td class = "pt-4">{{ item.cart_product_name.product_price }}$</td>
                         <td class = "pt-4">{{ item.cart_total}}$</td>
                         
@@ -44,4 +96,5 @@
         </div>
     </div>
 </div>
+-->
 {%endblock%}

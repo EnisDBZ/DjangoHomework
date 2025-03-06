@@ -23,17 +23,17 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top ">
         <div class="container-fluid pb-1">
-          <a class="navbar-brand" href="{%url 'website_app:index'%}">Commercial</a>
+          <a class="navbar-brand" href="{%url 'website_app:index'%}">LiderPet</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{%url 'website_app:index'%}">Home</a>
+                <a class="nav-link active" aria-current="page" href="{%url 'website_app:index'%}">Anasayfa</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'website_app:products' %}">Products</a>
+                <a class="nav-link" href="{% url 'website_app:products' %}">Ürünler</a>
               </li>
             </ul>
               </div>
@@ -45,9 +45,9 @@
                       <i class="bi bi-person-circle"> 
                         {%csrf_token%}
                         {%if user.is_authenticated%}
-                        Hello, {{user.username}}!
+                        Merhaba, {{user.username}}!
                         {%else%}
-                        Login
+                        Giriş Yap
                         {% endif %}
                       </i>
                       
@@ -55,11 +55,11 @@
                   
                     <ul class="dropdown-menu ">
                       {%if not user.is_authenticated%}
-                      <li><a class="dropdown-item  " href="{%url 'login'%}">Login</a></li>
-                      <li><a class="dropdown-item  " href="{%url 'website_app:signup'%}">Signup</a></li>
+                      <li><a class="dropdown-item  " href="{%url 'login'%}">Giriş Yap</a></li>
+                      <li><a class="dropdown-item  " href="{%url 'website_app:signup'%}">Kayıt Ol</a></li>
                       {%endif%}
                       {%if user.is_authenticated%}
-                      <li><a class="dropdown-item  " href="{% url 'logout' %}?next=/">Logout</a></li>
+                      <li><a class="dropdown-item  " href="{% url 'logout' %}?next=/">Çıkış yap</a></li>
                       {%endif%}
                       
                     </ul>
@@ -93,7 +93,7 @@
           <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
             <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
           </a>
-          <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Enis</span>
+          <span class="mb-3 mb-md-0 text-body-secondary">© 2025 Enis</span>
         </div>
     
         <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">

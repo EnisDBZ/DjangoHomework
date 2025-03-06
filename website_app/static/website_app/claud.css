@@ -16,10 +16,23 @@
     --primary-hover: #0f0f0f; /* Hover state for primary color */
     --input-focus-border: #4C80FF; /* Focus border color */
 }
-
 div#product_cards{
     display: block;
     right:10px;
+}
+
+#quantity{
+    width: 50px;
+    margin-bottom: 3px;
+    border-radius: 20px;
+    text-align: center;
+}
+#quantityCart{
+    width: 50px;
+    height: 30px;
+    top: 2px;
+    border-radius: 20px;
+    text-align: center;
 }
 
 

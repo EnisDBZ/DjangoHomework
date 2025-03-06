@@ -5,8 +5,12 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 import time
 from .models import Product,CustomUser,CartItem
+from .forms import CartItemForm
 from decimal import Decimal
-from django.http import JsonResponse
+from django.http import HttpResponse
+from django.utils import translation
+from django.conf import settings
+
 # Create your views here.
 
 def redirect_url_(request):
@@ -26,6 +30,22 @@ def success_view(request):
 
 
 # !--- Shopping Cart functions
+
+def update_cart_item(request, item_id):
+    if request.method == 'POST':
+        # Get the CartItem object by its ID
+        cart_item = CartItem.objects.get(id=item_id)
+
+        # Get the new quantity from the form
+        new_quantity = int(request.POST.get('quantity', cart_item.cart_quantity))  # Default to current quantity if not provided
+
+        # Update the cart item's quantity and save
+        cart_item.cart_quantity = new_quantity
+        cart_item.save()
+
+    # After updating, redirect the user back to the cart page
+    return redirect('website_app:cart')
+
 def products_view(request):
     products = Product.objects.all()
     return render(request,'website_app/products.html',{'products':products})
@@ -35,17 +55,35 @@ def cart_view(request):
     cart_items = CartItem.objects.filter(user = request.user)
     total_price = sum(item.cart_product_name.product_price * item.cart_quantity for item in cart_items)
     return render(request,'website_app/cart.html',{'cart_items':cart_items,'total_price':total_price})
-def add_to_cart(request,product_id):
+
+@login_required
+def add_to_cart(request, product_id):
     product = Product.objects.get(id=product_id)
-    cart_item, created = CartItem.objects.get_or_create(cart_product_name = product,user = request.user)
-    cart_item.cart_quantity += 1
-    cart_item.save()
-    return redirect('website_app:products')
+    if request.method == 'POST':
+        cart_item, created = CartItem.objects.get_or_create(cart_product_name = product,user = request.user)
+        quantity = int(request.POST.get('quantity',1))
+        cart_item.cart_quantity += quantity
+        cart_item.save()
+        return redirect('website_app:products')
+
+    # If it's not a POST request, render the product page with the form
+    return render(request, 'website_app/product_detail.html', {'product': product})
 
 def remove_from_cart(request,item_id):
+    # Get the cart item based on the item_id
+    cart_item = CartItem.objects.get(id=item_id)
+
+    cart_item.delete()
+
+        
+
+    # Redirect to the cart page after updating
+    return redirect('website_app:cart')
+'''  
     cart_item = CartItem.objects.get(id = item_id)
     cart_item.delete()
     return redirect('website_app:cart')
+'''
 # Shopping Cart codes ends here !---
 User =get_user_model()
 def login_view(request):
