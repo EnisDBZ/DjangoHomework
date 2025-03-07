@@ -1,0 +1,61 @@
+{% extends 'website_app/settings.html' %}
+
+{% block settings_content %}
+<div class="addresses-section">
+    <h2>Adreslerim</h2>
+    
+    <div class="addresses-list">
+        <p>Henüz kayıtlı adresiniz bulunmamaktadır.</p>
+    </div>
+    
+    <!-- Form to add a new address -->
+        <div class="dropdown">
+            <button type="button" class="btn btn-primary dropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+            Adres Ekle
+            </button>
+            <form class="dropdown-menu p-4">
+                <div class="adresler position-relative">
+                    <div class="row">
+                        <div class="title mb-3 ">
+                            <label for="address_title" class="form-label">Adres Başlığı</label>
+                            <input type="text" class="form-control" id="address_title" placeholder="Adres Başlığı">
+                        </div>
+                        <div class="adress mb-3 col-md-6">
+                            <label for="full_address" class="form-label">Adres Satırı</label>
+                            <input type="text" class="form-control" id="full_address" placeholder="Adres Satırı">
+                        </div>
+                        <div class="country mb-3">
+                            <label for="country" class="form-label">Ülke</label>
+                            <input type="text" class="form-control" id="country" placeholder="Ülke">
+                        </div>
+                        <div class="city mb-3">
+                            <label for="city" class="form-label">İl</label>
+                            <input type="text" class="form-control" id="city" placeholder="İl">
+                        </div>
+                        <div class="state mb-3">
+                            <label for="state" class="form-label">İlçe</label>
+                            <input type="text" class="form-control" id="state" placeholder="İlçe">
+                        </div>
+                        <div class="postal mb-3">
+                            <label for="postal_code" class="form-label">Posta Kodu</label>
+                            <input type="text" class="form-control" id="postal_code" placeholder="Posta Kodu">
+                        </div>
+                        <div class="phone mb-3">
+                            <label for="phone" class="form-label">Telefon</label>
+                            <input type="text" class="form-control" id="phone" placeholder="Telefon" maxlength="10">
+                        </div>
+                        <div class="checker mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="is_default">
+                                <label class="form-check-label" for="is_default">
+                                    Varsayılan Olarak Ayarlansın mı ?
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Ekle</button>
+                    </div>    
+                </div>
+            </form>
+        </div>
+</div>
+{% endblock %}

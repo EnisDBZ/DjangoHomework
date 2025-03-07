@@ -1,0 +1,72 @@
+.settings-container {
+    font-family: "Roboto",sans-serif;
+    display: flex;
+    max-width: 1000px;
+    margin: 30px auto;
+    background-color: #eeeeee;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow:scroll;
+}
+
+.settings-box {
+    width: 250px;
+    background-color: #d1d1d1;
+    padding: 20px;
+    height: 600px;
+}
+
+.settings-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.settings-list ul li {
+    margin-bottom: 10px;
+}
+
+.settings-list ul li a {
+    display: block;
+    padding: 12px 15px;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.settings-list ul li a:hover {
+    background-color: #ddd;
+}
+
+.settings-content {
+    flex: 1;
+    padding: 30px;
+}
+
+.dropdown-menu   {
+  margin-left:110px !important;
+  width: 500px;
+}
+
+/*DROPDOWN ITEMS*/
+.title{
+  width: 150px;
+}
+.country{
+  width: 150px;
+}
+.city{
+  width: 150px;
+}
+.state{
+  width: 150px;
+}
+.postal{
+  width: 150px;
+}
+.phone{
+  width: 250px;
+}
+.adres{
+  margin-right: 10px;
+}

@@ -1,0 +1,28 @@
+{% extends 'website_app/settings.html' %}
+
+{% block settings_content %}
+<div class="payment-methods-section">
+    <h2>Ödeme Yöntemlerim</h2>
+    
+    <div class="payment-methods-list">
+        {% for card in form %}
+        <!-- This would be populated with the user's payment methods from the database -->
+        <p>{item.form_user}</p>
+        <p>Henüz kayıtlı ödeme yönteminiz bulunmamaktadır.</p>
+        {%endfor%}
+    </div>
+    
+    <div class="add-payment-method-form">
+        <form method="post" action="#">
+            {% csrf_token %}
+           <!-- From Uiverse.io by TISEPSE --> 
+            <div class="payment">
+                <button>
+                    
+                <a href="{%url 'website_app:add_credit_card'%}" class="save_payment"><span>Yeni Ödeme Yöntemi Ekle</span> </a> 
+                </button>     
+            </div>
+         </form>
+    </div>
+</div>
+{% endblock %}

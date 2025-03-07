@@ -4,14 +4,83 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 import time
-from .models import Product,CustomUser,CartItem
-from .forms import CartItemForm
+from .models import Product,CustomUser,CartItem,UserAddress
+from .forms import CartItemForm,UserAddressForm
 from decimal import Decimal
 from django.http import HttpResponse
 from django.utils import translation
 from django.conf import settings
 
 # Create your views here.
+
+
+
+
+@login_required
+def settings_user(request):
+    """Main settings page view"""
+    return render(request, 'website_app/settings.html')
+
+@login_required
+
+def settings_view(request):
+    form = UserAddressForm()
+    if request.method == 'POST':
+        form = UserAddressForm(request.POST)
+        if form.is_valid():
+            # Handle form submission, save data or do something
+            form.save()
+    return render(request, 'website_app/settings_addresses.html', {'form': form})
+
+@login_required
+def payment_methods_settings(request):
+    """User payment methods settings page"""
+    # Here you would retrieve the user's payment methods from your database
+    # For now we'll just render a template
+    return render(request, 'website_app/settings_payment.html')
+@login_required
+def addresses_settings(request):
+    """User addresses settings page"""
+    # Get all user addresses
+    user_addresses = UserAddress.objects.filter(user=request.user)
+    
+    if request.method == 'POST':
+        # Process the form data
+        address_title = request.POST.get('address_title')
+        full_address = request.POST.get('full_address')
+        country = request.POST.get('country')
+        state = request.POST.get('state')
+        city = request.POST.get('city')
+        postal_code = request.POST.get('postal_code')
+        phone = request.POST.get('phone')
+        is_default = request.POST.get('is_default')
+        
+        # Create a new address
+        new_address = UserAddress(
+            user=request.user,
+            address_title=address_title,
+            full_address=full_address,
+            country = country,
+            state = state,
+            is_default = is_default,
+            city=city,
+            postal_code=postal_code,
+            phone=phone
+        )
+        
+        # If this is the first address, make it default
+        if not user_addresses.exists():
+            new_address.is_default = True
+            
+        new_address.save()
+        
+        # Redirect to the same page to avoid form resubmission
+        messages.success(request, "Adresiniz başarıyla kaydedildi.")
+        return redirect('website_app:addresses_settings')
+    
+    return render(request, 'website_app/settings_addresses.html', {
+        'addresses': user_addresses
+    })
 
 def redirect_url_(request):
     if request.user.is_authenticated:
@@ -99,6 +168,8 @@ def login_view(request):
             if user.is_staff or user.is_superuser:
                 login(request, user)
                 return redirect('/admin/')  # Redirect to a success page
+            elif user.is_authenticated:
+                return redirect('website_app:index')
         
             return render(request,'website_app/index.html')
         else:

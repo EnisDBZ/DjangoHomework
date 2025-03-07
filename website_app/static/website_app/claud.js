@@ -1,3 +1,6 @@
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
     // Get the dark mode toggle button
     const darkModeToggle = document.getElementById('darkModeToggle');

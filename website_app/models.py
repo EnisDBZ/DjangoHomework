@@ -36,3 +36,29 @@ class CartItem(models.Model):
     
     def cart_total(self):
         return self.cart_quantity * self.cart_product_name.product_price
+class UserAddress(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='addresses')
+    address_title = models.CharField(max_length=100,null=True,blank=True)
+    full_address = models.CharField(max_length=100, null=True,blank=True)
+    country = models.CharField(max_length=100,null=True,blank=True)
+    state = models.CharField(max_length=100,null=True,blank=True)
+    city = models.CharField(max_length=100,null=True,blank=True)
+    postal_code = models.CharField(max_length=20,null=True,blank=True)
+    phone = models.CharField(max_length=20,null=True,blank=True)
+    is_default = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return f"{self.address_title} - {self.user.username}"
+    
+    class Meta:
+        verbose_name = "Kullanıcı Adresleri"
+        verbose_name_plural = "Kullanıcı Adresleri"
+
+class CreditCard(models.Model):
+    user = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name='payment')
+    card_number = models.CharField(max_length=16)
+    expire_date = models.CharField(max_length=5)# MM/YY
+    cvv = models.CharField(max_length=3)
+
+    def __str__(self):
+        return f"{self.user} : **** **** **** {self.card_number[-4:]}"
